@@ -1,5 +1,7 @@
-const send = require('./request')
-const read = require('./response')
+// using Ecmascript syntax
+
+import send from './request';
+import read from './response';
 
 function request(url, data) {
   send(url, data)

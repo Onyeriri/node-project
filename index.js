@@ -17,21 +17,26 @@
 
 // getResponse()
 
-const parse = require('csv-parse');
+const {parse} = require('csv-parse');
 const fs = require('fs');
 
-const data = [];
+const result = [];
 
 fs.createReadStream('./plant_project/kepler_data.csv')
-  .on('data', (chunk) => {
-  data.push(chunk)
+  .pipe(parse({
+    comment: '#',
+    columns: true
+  }))
+  .on('data', (data) => {
+  result.push(data)
   })
   .on('error', (error) => {
   console.log(error)
   })
   .on('end', () => {
-  console.log('End of file')
+    console.log('End of file')
+    console.log(result)
   })
 
-// console.log(data)
+
 // parse();

@@ -1,8 +1,8 @@
 const express = require('express');
-const { getFriends, getOneFriend, addFriend } = require('../controllers/friends.controllers');
 const { message} = require('../controllers/message.controller');
 const { home } = require('../controllers/home.controller');
 const friendsRoutes = require('../routes/friends.routes');
+const messageRoute = require('../routes/messages.routes');
 
 const app = express();
 
@@ -17,11 +17,11 @@ app.use((req, res, next) => {
 
 app.use(express.json())
 app.use('/friends', friendsRoutes)
+app.use('/message', messageRoute);
 
-
-app.get('/', home)
-app.get('/message', message)
-
-
+friendsRoutes.use((req, res) => {
+  console.log(`Current ip address: ${req.ip}`)
+})
+// app.get('/', home)
 
 app.listen(PORT, () => console.log(`Server started at ${PORT} from node express app`))

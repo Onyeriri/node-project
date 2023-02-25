@@ -1,9 +1,10 @@
 const express = require('express');
-const { message} = require('../controllers/message.controller');
-const { home } = require('../controllers/home.controller');
+// const { message} = require('../controllers/message.controller');
+// const { home } = require('../controllers/home.controller');
 const friendsRoutes = require('../routes/friends.routes');
 const messageRoute = require('../routes/messages.routes');
 const path = require('path');
+const homeRoute = require('../routes/home.route');
 
 const app = express();
 
@@ -27,17 +28,11 @@ app.use('/site', express.static(path.join(__dirname,'..', 'public')))
 app.use(express.json())
 app.use('/friends', friendsRoutes)
 app.use('/message', messageRoute);
+app.use('/home', homeRoute)
 
 friendsRoutes.use((req, res, next) => {
   console.log(`Current ip address: ${req.ip}`)
   next()
-})
-
-app.get('/', (req, res) => {
-  res.render('index', {
-    title: 'Skiing',
-    caption: 'Nigeria my favorite country'
-  })
 })
 
 app.listen(PORT, () => console.log(`Server started at ${PORT} from node express app`))

@@ -22,6 +22,7 @@ app.use('/message', messageRoute);
 friendsRoutes.use((req, res) => {
   console.log(`Current ip address: ${req.ip}`)
 })
+
 // app.get('/', home)
 
 app.listen(PORT, () => console.log(`Server started at ${PORT} from node express app`))
